@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home budget tracker</title>
     <!--Css link -->
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='CSS/style.css')}}">
     <!--bootsrap links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
-<body>
+<body class="home">
     <!--header of the budget tracker -->
     <header class="py-4">
         <div class="container">
@@ -52,6 +52,7 @@
                             Register
                             <i class="bi bi-person-add ms-2"></i>
                         </a>
+
     
                     </div>
     
@@ -61,7 +62,6 @@
     
         </div>
     </section>
-
- <script src="{{url_for('static',filename='script.js')}}"></script>
+    
 </body>
 </html>

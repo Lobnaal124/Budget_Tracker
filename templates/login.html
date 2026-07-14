@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>  
      <!--Css link -->
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='CSS/style.css')}}">
     <!--bootsrap links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
-<body>
+<body class="login">
     <!--header of the budget tracker -->
     <header class="py-4">
         <div class="container">
@@ -36,10 +36,10 @@
                         Welcome Back
                     </h2>
     
-                    <form>
+                    <form id="login">
     
                         <!-- Username -->
-                        <div class="mb-3">
+                        <div class="mb-3" >
                             <label class="form-label">
                                 Username
                             </label>
@@ -48,6 +48,7 @@
                                 type="text"
                                 class="form-control"
                                 placeholder="Enter your username"
+                                id="username"
                                 required>
                         </div>
     
@@ -61,14 +62,17 @@
                                 type="password"
                                 class="form-control"
                                 placeholder="Enter your password"
+                                id="password"
                                 required>
                         </div>
     
                         <!-- Login Button -->
-                        <div class="d-grid">
+                        <div class="d-grid gap-3">
                             <button type="submit" class="btn btn-primary btn-lg">
                                 Login
                             </button>
+                            <label class="form-label color=navy">If you don't have an account </label>
+                            <a href="/register" class="btn btn-outline-primary btn-lg">Sign up</a>
                         </div>
     
                     </form>
@@ -80,6 +84,8 @@
         </div>
     
     </div>
+
+    <script src="{{url_for('static',filename='javascript/login.js')}}"></script>
 
 </body>
 </html>
