@@ -24,7 +24,7 @@
         </div>
     </header>
     <!--input user name and pass and confim pass -->
-    <div class="container mt-5">
+    <div class="container ">
 
         <div class="row justify-content-center">
     
@@ -54,6 +54,7 @@
                                     id="username"
                                     required>
                             </div>
+                            <div id="usernameError" class="invalid-feedback"></div>
                         </div>
     
                         <!-- Email -->
@@ -72,6 +73,7 @@
                                     id="email"
                                     required>
                             </div>
+                            <div id="emailError" class="invalid-feedback"></div>
                         </div>
     
                         <!-- Password -->
@@ -90,6 +92,7 @@
                                     id="password"
                                     required>
                             </div>
+                            <div id="passwordError" class="invalid-feedback"></div>
                         </div>
     
                         <!-- Confirm Password -->
@@ -105,9 +108,10 @@
                                     type="password"
                                     class="form-control"
                                     placeholder="Confirm your password"
-                                    id="confimPassword"
+                                    id="confirmPassword"
                                     required>
                             </div>
+                            <div id="confirmError" class="invalid-feedback"></div>
                         </div>
     
                         <!-- Register Button -->
@@ -117,8 +121,14 @@
                                 class="btn btn-primary btn-lg">
                                 Create Account
                             </button>
-                            <label class="form-label color=navy"> Already have an account</label>
-                            <a href="/login" class="btn btn-outline-primary btn-lg">Log in</a>
+                            <div class="text-center mt-4">
+                                <span class="text-muted">
+                                    Already have an account?
+                                </span>
+                                <a href="/login" class="signin-link ms-1">
+                                    Sign In
+                                </a>
+                            </div>
                         </div>
     
                     </form>

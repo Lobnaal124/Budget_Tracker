@@ -50,6 +50,7 @@
                                 placeholder="Enter your username"
                                 id="username"
                                 required>
+                                <div id="usernameError" class="invalid-feedback"></div>
                         </div>
     
                         <!-- Password -->
@@ -64,15 +65,23 @@
                                 placeholder="Enter your password"
                                 id="password"
                                 required>
+                                <div id="passwordError" class="invalid-feedback"></div>
                         </div>
     
                         <!-- Login Button -->
                         <div class="d-grid gap-3">
-                            <button type="submit" class="btn btn-primary btn-lg">
+                            <button type="submit" class="btn btn-primary btn-lg ">
                                 Login
                             </button>
-                            <label class="form-label color=navy">If you don't have an account </label>
-                            <a href="/register" class="btn btn-outline-primary btn-lg">Sign up</a>
+                            <div class="text-center mt-3">
+                                <span class="text-secondary">
+                                    Don't have an account?
+                                </span>
+                            
+                                <a href="/register" class="text-primary text-decoration-none fw-semibold ms-1">
+                                    Sign Up
+                                </a>
+                            </div>
                         </div>
     
                     </form>
