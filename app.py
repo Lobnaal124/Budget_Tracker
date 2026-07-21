@@ -98,7 +98,7 @@ def add_transaction():
 
     data = request.get_json()
 
-    title = data["title"]
+    
     amount = data["amount"]
     category = data["category"]
     transaction_type = data["type"]
@@ -111,16 +111,18 @@ def add_transaction():
         new_id = 1
     else:
         new_id = transactions[-1]["id"] + 1
+    #  for each user
+    username = data["username"]
 
     new_transaction = Transaction(
-        new_id,
-        title,
-        amount,
-        category,
-        transaction_type,
-        date
-    )
+    new_id,
+    username,
+    amount,
+    category,
+    transaction_type,
+    date
 
+     )
     transactions.append(new_transaction.to_dict())
 
     save_transactions(transactions)
@@ -130,12 +132,22 @@ def add_transaction():
         "message": "Transaction Added Successfully."
     })
 
-@app.route("/api/transactions", methods=["GET"])
+@app.route("/api/transactions")
 def get_transactions():
+
+    username = request.args.get("username")
 
     transactions = load_transactions()
 
-    return jsonify(transactions)
+    user_transactions = []
+
+    for transaction in transactions:
+
+        if transaction["username"] == username:
+
+            user_transactions.append(transaction)
+
+    return jsonify(user_transactions)
 
 # ===========================
 # Delete Transaction API
@@ -145,10 +157,22 @@ def delete_transaction(id):
 
     transactions = load_transactions()
 
+    username = request.args.get("username")
+
     transactions = [
-        transaction
-        for transaction in transactions
-        if transaction["id"] != id
+
+    transaction
+
+    for transaction in transactions
+
+    if not (
+
+        transaction["id"] == id and
+
+        transaction["username"] == username
+
+    )
+
     ]
 
     save_transactions(transactions)
@@ -172,23 +196,26 @@ def update_transaction(id):
 
     for transaction in transactions:
 
-        if transaction["id"] == id:
+        if (
+            transaction["id"] == id
+            and transaction["username"] == data["username"]
+        ):
 
-            transaction["title"] = data["title"]
             transaction["amount"] = float(data["amount"])
             transaction["category"] = data["category"]
             transaction["transaction_type"] = data["type"]
             transaction["date"] = data["date"]
 
-            break
+            save_transactions(transactions)
 
-    save_transactions(transactions)
+            return jsonify({
+                "success": True,
+                "message": "Transaction updated successfully."
+            })
 
     return jsonify({
-
-        "success": True,
-        "message": "Transaction updated successfully."
-
+        "success": False,
+        "message": "Transaction not found."
     })
 
 # ===========================

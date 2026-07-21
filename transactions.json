@@ -1,10 +1,74 @@
 [
     {
-        "id": 1,
+        "id": 2,
+        "username": "adel",
+        "title": "My transaction",
+        "amount": 2000.0,
+        "category": "Shopping",
+        "transaction_type": "Expense",
+        "date": "2026-07-20"
+    },
+    {
+        "id": 3,
+        "username": "adel",
         "title": "salary",
-        "amount": 100000.0,
+        "amount": 20000.0,
         "category": "Salary",
         "transaction_type": "Income",
-        "date": "2026-07-18"
+        "date": "2026-07-19"
+    },
+    {
+        "id": 4,
+        "username": "Lobna",
+        "title": "lunch",
+        "amount": 90000.0,
+        "category": "Food",
+        "transaction_type": "Expense",
+        "date": "2026-07-20"
+    },
+    {
+        "id": 5,
+        "username": "Lobna",
+        "title": "salary",
+        "amount": 200000000.0,
+        "category": "Salary",
+        "transaction_type": "Income",
+        "date": "2026-07-20"
+    },
+    {
+        "id": 6,
+        "username": "Safiya",
+        "title": "today",
+        "amount": 44.0,
+        "category": "Transport",
+        "transaction_type": "Expense",
+        "date": "2026-07-20"
+    },
+    {
+        "id": 7,
+        "username": "sasa",
+        "title": "sasa",
+        "amount": 12.0,
+        "category": "Food",
+        "transaction_type": "Income",
+        "date": "2026-07-22"
+    },
+    {
+        "id": 8,
+        "username": "sasa",
+        "title": "asd",
+        "amount": 12.0,
+        "category": "Food",
+        "transaction_type": "Income",
+        "date": "2026-07-25"
+    },
+    {
+        "id": 9,
+        "username": "joy",
+        "title": "hit",
+        "amount": 5980.0,
+        "category": "Salary",
+        "transaction_type": "Income",
+        "date": "2026-07-23"
     }
 ]

@@ -25,30 +25,40 @@
     />
   </head>
   <body class="dashboard">
-    <!-- nav bar for dashboard  -->
+    <!-- nav bar for dashboard -->
     <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
-      <div class="container">
+      <div class="container d-flex justify-content-between align-items-center">
+    
+        <!-- Welcome section -->
         <div>
           <h4 class="fw-bold mb-0">
             Welcome
             <span id="username" class="text-primary"></span>
           </h4>
-
+    
           <small class="text-secondary">
             Let's manage your finances today.
           </small>
         </div>
-
-        <div class="d-flex align-items-flex-end gap-3">
-          <button class="btn btn-light rounded-circle">
-            <i class="bi bi-moon"></i>
+    
+    
+        <!-- Buttons section -->
+        <div class="d-flex align-items-center gap-3">
+    
+          <button
+            class="btn btn-light rounded-circle"
+            id="themeBtn">
+            <i class="bi bi-moon-fill" id="themeIcon"></i>
           </button>
-
+    
+    
           <a href="/" class="btn btn-outline-danger logout-btn">
             <i class="bi bi-box-arrow-right"></i>
             Logout
           </a>
+    
         </div>
+    
       </div>
     </nav>
 
@@ -96,26 +106,23 @@
 
 </div>
 
-    <!-- search and filter -->
-    <div class="container mt-5">
-      <div class="row">
+<!-- Search and Filter -->
+<div class="container mt-5">
+    <div class="row g-3">
+        <!-- Filter -->
         <div class="col-md-4">
-          <select class="form-select">
-            <option>All</option>
-            <option>Income</option>
-            <option>Expense</option>
-          </select>
-        </div>
+            <select class="form-select" id="filterType">
 
-        <div class="col-md-8">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search transaction"
-          />
+                <option value="All">All</option>
+
+                <option value="Income">Income</option>
+
+                <option value="Expense">Expense</option>
+
+            </select>
         </div>
-      </div>
     </div>
+</div>
 
     <!-- transaction table  -->
     <div class="container mt-4">
@@ -123,7 +130,7 @@
         <table class="table table-hover align-middle">
           <thead>
             <tr>
-              <th>Title</th>
+              <th>Type</th>
 
               <th>Category</th>
 
@@ -166,14 +173,27 @@
 
           <div class="modal-body">
             <form id="transaction-form">
-              <!-- Title -->
+              <!-- Type -->
 
               <div class="mb-3">
-                <label class="form-label"> Title </label>
 
-                <input type="text" class="form-control" id="title" required />
-              </div>
-
+                <label class="form-label">
+                    Type
+                </label>
+            
+                <select class="form-select" id="type">
+            
+                    <option value="Income">
+                        Income
+                    </option>
+            
+                    <option value="Expense">
+                        Expense
+                    </option>
+            
+                </select>
+            
+            </div>
               <!-- Amount -->
 
               <div class="mb-3">
@@ -199,17 +219,6 @@
                   <option>Bills</option>
                   <option>Salary</option>
                   <option>Entertainment</option>
-                </select>
-              </div>
-
-              <!-- Type -->
-
-              <div class="mb-3">
-                <label class="form-label"> Type </label>
-
-                <select class="form-select" id="type">
-                  <option>Income</option>
-                  <option>Expense</option>
                 </select>
               </div>
 

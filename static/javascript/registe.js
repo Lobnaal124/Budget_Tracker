@@ -8,12 +8,44 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const confirmInput = document.getElementById("confirmPassword");
 
+// Error Messages
+const usernameError = document.getElementById("usernameError");
+const emailError = document.getElementById("emailError");
+const passError = document.getElementById("passError");
+const confirmError = document.getElementById("confirmError");
 
 // ===============================
-// Register Event
+// Events
 // ===============================
 registerForm.addEventListener("submit", registerUser);
 
+usernameInput.addEventListener("input", () => {
+    validateUsername(usernameInput.value.trim());
+});
+
+emailInput.addEventListener("input", () => {
+    validateEmail(emailInput.value.trim());
+});
+
+passwordInput.addEventListener("input", () => {
+
+    validatePassword(passwordInput.value.trim());
+
+    validateConfirmPassword(
+        passwordInput.value.trim(),
+        confirmInput.value.trim()
+    );
+
+});
+
+confirmInput.addEventListener("input", () => {
+
+    validateConfirmPassword(
+        passwordInput.value.trim(),
+        confirmInput.value.trim()
+    );
+
+});
 
 // ===============================
 // Register Function
@@ -22,28 +54,24 @@ async function registerUser(event) {
 
     event.preventDefault();
 
-    clearValidation();
-
-    // Get Input Values
     const username = usernameInput.value.trim();
+
     const email = emailInput.value.trim();
+
     const password = passwordInput.value.trim();
+
     const confirm = confirmInput.value.trim();
 
+    const isValid =
+        validateUsername(username) &&
+        validateEmail(email) &&
+        validatePassword(password) &&
+        validateConfirmPassword(password, confirm);
 
-    // Validation
-    if (!validateUsername(username)) return;
-
-    if (!validateEmail(email)) return;
-
-    if (!validatePassword(password)) return;
-
-    if (!validateConfirmPassword(password, confirm)) return;
-
+    if (!isValid) return;
 
     try {
 
-        // Send Data To Flask
         const response = await fetch("/api/register", {
 
             method: "POST",
@@ -62,16 +90,14 @@ async function registerUser(event) {
 
         const data = await response.json();
 
-        // Register Success
         if (data.success) {
 
-            localStorage.setItem("username", data.username);
+            localStorage.setItem("username", username);
 
             window.location.href = "/dashboard";
 
         }
 
-        // Register Failed
         else {
 
             alert(data.message);
@@ -89,19 +115,24 @@ async function registerUser(event) {
     }
 
 }
-
-
 // ===============================
 // Username Validation
 // ===============================
 function validateUsername(username) {
 
+    usernameInput.classList.remove("is-valid", "is-invalid");
+
+    usernameError.classList.remove("text-success", "text-danger");
+
+    usernameError.textContent = "";
+
     if (username === "") {
 
         usernameInput.classList.add("is-invalid");
 
-        document.getElementById("usernameError").textContent =
-            "Username is required.";
+        usernameError.classList.add("text-danger");
+
+        usernameError.textContent = "✖ Username is required.";
 
         return false;
 
@@ -111,8 +142,10 @@ function validateUsername(username) {
 
         usernameInput.classList.add("is-invalid");
 
-        document.getElementById("usernameError").textContent =
-            "Username must be at least 3 characters.";
+        usernameError.classList.add("text-danger");
+
+        usernameError.textContent =
+            "✖ Username must be at least 3 characters.";
 
         return false;
 
@@ -120,24 +153,46 @@ function validateUsername(username) {
 
     usernameInput.classList.add("is-valid");
 
+    usernameError.classList.add("text-success");
+
+    usernameError.textContent = "✔ Username looks good.";
+
     return true;
 
 }
-
-
 // ===============================
 // Email Validation
 // ===============================
 function validateEmail(email) {
 
+    emailInput.classList.remove("is-valid", "is-invalid");
+
+    emailError.classList.remove("text-success", "text-danger");
+
+    emailError.textContent = "";
+
     const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    if (email === "") {
+
+        emailInput.classList.add("is-invalid");
+
+        emailError.classList.add("text-danger");
+
+        emailError.textContent = "✖ Email is required.";
+
+        return false;
+
+    }
 
     if (!emailPattern.test(email)) {
 
         emailInput.classList.add("is-invalid");
 
-        document.getElementById("emailError").textContent =
-            "Please enter a valid Gmail address.";
+        emailError.classList.add("text-danger");
+
+        emailError.textContent =
+            "✖ Please enter a valid Gmail address.";
 
         return false;
 
@@ -145,34 +200,52 @@ function validateEmail(email) {
 
     emailInput.classList.add("is-valid");
 
+    emailError.classList.add("text-success");
+
+    emailError.textContent = "✔ Valid Gmail address.";
+
     return true;
 
 }
-
-
 // ===============================
 // Password Validation
 // ===============================
 function validatePassword(password) {
 
+    passwordInput.classList.remove("is-valid", "is-invalid");
+
+    passError.classList.remove("text-success", "text-danger");
+
+    passError.textContent = "";
+
+    // Password:
+    // At least 8 characters
+    // One uppercase
+    // One lowercase
+    // One number
+    const passPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
     if (password === "") {
 
         passwordInput.classList.add("is-invalid");
 
-        document.getElementById("passwordError").textContent =
-            "Password is required.";
+        passError.classList.add("text-danger");
+
+        passError.textContent = "✖ Password is required.";
 
         return false;
 
     }
 
-    // Numbers Only
-    if (!/^\d+$/.test(password)) {
+    if (!passPattern.test(password)) {
 
         passwordInput.classList.add("is-invalid");
 
-        document.getElementById("passwordError").textContent =
-            "Password must contain numbers only.";
+        passError.classList.add("text-danger");
+
+        passError.textContent =
+            "✖ Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number.";
 
         return false;
 
@@ -180,22 +253,32 @@ function validatePassword(password) {
 
     passwordInput.classList.add("is-valid");
 
+    passError.classList.add("text-success");
+
+    passError.textContent = "✔ Strong password.";
+
     return true;
 
 }
-
-
 // ===============================
 // Confirm Password Validation
 // ===============================
 function validateConfirmPassword(password, confirm) {
 
+    confirmInput.classList.remove("is-valid", "is-invalid");
+
+    confirmError.classList.remove("text-success", "text-danger");
+
+    confirmError.textContent = "";
+
     if (confirm === "") {
 
         confirmInput.classList.add("is-invalid");
 
-        document.getElementById("confirmError").textContent =
-            "Please confirm your password.";
+        confirmError.classList.add("text-danger");
+
+        confirmError.textContent =
+            "✖ Please confirm your password.";
 
         return false;
 
@@ -205,8 +288,10 @@ function validateConfirmPassword(password, confirm) {
 
         confirmInput.classList.add("is-invalid");
 
-        document.getElementById("confirmError").textContent =
-            "Passwords do not match.";
+        confirmError.classList.add("text-danger");
+
+        confirmError.textContent =
+            "✖ Passwords do not match.";
 
         return false;
 
@@ -214,24 +299,11 @@ function validateConfirmPassword(password, confirm) {
 
     confirmInput.classList.add("is-valid");
 
+    confirmError.classList.add("text-success");
+
+    confirmError.textContent =
+        "✔ Passwords match.";
+
     return true;
-
-}
-
-
-// ===============================
-// Clear Validation
-// ===============================
-function clearValidation() {
-
-    usernameInput.classList.remove("is-valid", "is-invalid");
-    emailInput.classList.remove("is-valid", "is-invalid");
-    passwordInput.classList.remove("is-valid", "is-invalid");
-    confirmInput.classList.remove("is-valid", "is-invalid");
-
-    document.getElementById("usernameError").textContent = "";
-    document.getElementById("emailError").textContent = "";
-    document.getElementById("passwordError").textContent = "";
-    document.getElementById("confirmError").textContent = "";
 
 }

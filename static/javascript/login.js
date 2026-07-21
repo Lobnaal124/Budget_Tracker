@@ -1,48 +1,33 @@
-// const loginform = document.getElementById("login");
-
-// loginform.addEventListener("submit", async function (e) {
-//   e.preventDefault();
-
-//   const username = document.getElementById("username").value;
-//   const password = document.getElementById("password").value;
-
-//   const response = await fetch("/api/login", {
-//     method: "POST",
-
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-
-//     body: JSON.stringify({
-//       username,
-//       password,
-//     }),
-//   });
-
-//   const data = await response.json();
-
-//   if (data.success) {
-//     localStorage.setItem("username", data.username);
-
-//     window.location.href = "/dashboard";
-//   } else {
-//     alert(data.message);
-//   }
-// });
 // ===============================
 // Get Elements
 // ===============================
 const loginForm = document.getElementById("login");
-
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 
+// Error Messages
+const usernameError = document.getElementById("usernameError");
+const passError = document.getElementById("passError");
 
 // ===============================
 // Login Event
 // ===============================
 loginForm.addEventListener("submit", loginUser);
 
+// ===============================
+// Live Validation
+// ===============================
+usernameInput.addEventListener("input", function () {
+
+    validateUsername(usernameInput.value.trim());
+
+});
+
+passwordInput.addEventListener("input", function () {
+
+    validatePassword(passwordInput.value.trim());
+
+});
 
 // ===============================
 // Login Function
@@ -50,9 +35,6 @@ loginForm.addEventListener("submit", loginUser);
 async function loginUser(event) {
 
     event.preventDefault();
-
-    // Remove old validation
-    clearValidation();
 
     // Get Input Values
     const username = usernameInput.value.trim();
@@ -112,19 +94,25 @@ async function loginUser(event) {
 
 }
 
-
-
 // ===============================
 // Username Validation
 // ===============================
 function validateUsername(username) {
 
+    usernameInput.classList.remove("is-valid", "is-invalid");
+
+    usernameError.classList.remove("text-success", "text-danger");
+
+    usernameError.textContent = "";
+
     if (username === "") {
 
         usernameInput.classList.add("is-invalid");
 
-        document.getElementById("usernameError").textContent =
-            "Username is required.";
+        usernameError.classList.add("text-danger");
+
+        usernameError.textContent =
+            "✖ Username is required.";
 
         return false;
 
@@ -134,8 +122,10 @@ function validateUsername(username) {
 
         usernameInput.classList.add("is-invalid");
 
-        document.getElementById("usernameError").textContent =
-            "Username must be at least 3 characters.";
+        usernameError.classList.add("text-danger");
+
+        usernameError.textContent =
+            "✖ Username must be at least 3 characters.";
 
         return false;
 
@@ -143,35 +133,50 @@ function validateUsername(username) {
 
     usernameInput.classList.add("is-valid");
 
+    usernameError.classList.add("text-success");
+
+    usernameError.textContent =
+        "✔ Username looks good.";
+
     return true;
 
 }
-
-
 
 // ===============================
 // Password Validation
 // ===============================
 function validatePassword(password) {
 
+    passwordInput.classList.remove("is-valid", "is-invalid");
+
+    passError.classList.remove("text-success", "text-danger");
+
+    passError.textContent = "";
+
+    const passPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
     if (password === "") {
 
         passwordInput.classList.add("is-invalid");
 
-        document.getElementById("passwordError").textContent =
-            "Password is required.";
+        passError.classList.add("text-danger");
+
+        passError.textContent =
+            "✖ Password is required.";
 
         return false;
 
     }
 
-    // Numbers Only
-    if (!/^\d+$/.test(password)) {
+    if (!passPattern.test(password)) {
 
         passwordInput.classList.add("is-invalid");
 
-        document.getElementById("passwordError").textContent =
-            "Password must contain numbers only.";
+        passError.classList.add("text-danger");
+
+        passError.textContent =
+            "✖ Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number.";
 
         return false;
 
@@ -179,21 +184,11 @@ function validatePassword(password) {
 
     passwordInput.classList.add("is-valid");
 
+    passError.classList.add("text-success");
+
+    passError.textContent =
+        "✔ Strong password.";
+
     return true;
-
-}
-
-
-
-// ===============================
-// Clear Validation
-// ===============================
-function clearValidation() {
-
-    usernameInput.classList.remove("is-valid", "is-invalid");
-    passwordInput.classList.remove("is-valid", "is-invalid");
-
-    document.getElementById("usernameError").textContent = "";
-    document.getElementById("passwordError").textContent = "";
 
 }

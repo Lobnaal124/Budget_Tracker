@@ -1,7 +1,42 @@
 [
     {
-        "username": "Lobna Mohamed",
+        "username": "Lobna",
         "email": "lobnam725@gmail.com",
-        "password": "12345"
+        "password": "Lobna209"
+    },
+    {
+        "username": "Ranya",
+        "email": "ranya725@gmail.com",
+        "password": "Rery1234"
+    },
+    {
+        "username": "adel",
+        "email": "ad@gmail.com",
+        "password": "112233aA"
+    },
+    {
+        "username": "Safiya",
+        "email": "lobnam@gmail.com",
+        "password": "M5g9s712345"
+    },
+    {
+        "username": "Reem",
+        "email": "reem@gmail.com",
+        "password": "Reem1234"
+    },
+    {
+        "username": "sasa",
+        "email": "sad@gmail.com",
+        "password": "Mostafa123"
+    },
+    {
+        "username": "joy",
+        "email": "joy@gmail.com",
+        "password": "Password123"
+    },
+    {
+        "username": "mohamed",
+        "email": "mohamed@gmail.com",
+        "password": "mohamed123A"
     }
 ]

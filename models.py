@@ -19,10 +19,18 @@ class User:
 # transaction class 
 class Transaction:
 
-    def __init__(self, id, title, amount, category, transaction_type, date):
+    def __init__(
+        self,
+        id,
+        username,
+        amount,
+        category,
+        transaction_type,
+        date
+    ):
 
         self.id = id
-        self.title = title
+        self.username = username
         self.amount = float(amount)
         self.category = category
         self.transaction_type = transaction_type
@@ -31,10 +39,12 @@ class Transaction:
     def to_dict(self):
 
         return {
+
             "id": self.id,
-            "title": self.title,
+            "username": self.username,
             "amount": self.amount,
             "category": self.category,
             "transaction_type": self.transaction_type,
             "date": self.date
+
         }
