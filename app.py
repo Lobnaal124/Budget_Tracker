@@ -32,12 +32,21 @@ def api_register():
 
     users = load_users()
 
+# Check username
     for user in users:
-        if user["email"] == email:
-            return jsonify({
-                "success": False,
-                "message": "Email already exists."
-            }), 400
+     if user["username"].lower() == username.lower():
+       return jsonify({
+            "success": False,
+            "message": "Username already exists."
+        }), 400
+
+# Check email
+    for user in users:
+     if user["email"].lower() == email.lower():
+        return jsonify({
+            "success": False,
+            "message": "Email already exists."
+        }), 400
 
     new_user = User(username, email, password)
 

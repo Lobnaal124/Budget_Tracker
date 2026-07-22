@@ -38,5 +38,25 @@
         "username": "mohamed",
         "email": "mohamed@gmail.com",
         "password": "mohamed123A"
+    },
+    {
+        "username": "Yahya",
+        "email": "yahya@gmail.com",
+        "password": "Password.1"
+    },
+    {
+        "username": "sandy",
+        "email": "sandy@gmail.com",
+        "password": "Sandy123"
+    },
+    {
+        "username": "sandy",
+        "email": "lobnamj725@gmail.com",
+        "password": "Sandy123"
+    },
+    {
+        "username": "sandy",
+        "email": "lobnasm725@gmail.com",
+        "password": "Aa123456"
     }
 ]
