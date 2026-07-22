@@ -7,6 +7,7 @@ const logoutBtn = document.querySelector(".logout-btn");
 const transactionForm = document.getElementById("transaction-form");
 const saveTransactionBtn = document.getElementById("saveTransaction");
 
+const titleInput=document.getElementById("title");
 const amountInput = document.getElementById("amount");
 const categoryInput = document.getElementById("category");
 const typeInput = document.getElementById("type");
@@ -75,12 +76,13 @@ function logout() {
 // Add Transaction
 // ===============================
 async function addTransaction() {
+  const title = titleInput.value.trim();
   const amount = amountInput.value.trim();
   const category = categoryInput.value;
   const type = typeInput.value;
   const date = dateInput.value;
 
-  if (!validateTransaction( amount, date)) {
+  if (!validateTransaction( title,amount, date)) {
     return;
   }
   if (editTransactionId !== null) {
@@ -102,6 +104,8 @@ async function addTransaction() {
         body: JSON.stringify({
 
             username: localStorage.getItem("username"),
+
+            title,
             amount,
             category,
             type,
@@ -196,7 +200,7 @@ const filteredTransactions = data.filter((transaction) => {
   if (filteredTransactions.length === 0) {
     table.innerHTML = `
             <tr>
-                <td colspan="5" class="text-center">
+                <td colspan="6" class="text-center">
                     No transactions found.
                 </td>
             </tr>
@@ -209,19 +213,17 @@ const filteredTransactions = data.filter((transaction) => {
   filteredTransactions.forEach((transaction) => {
     table.innerHTML += `
             <tr>
+            
+            <td>${transaction.title}</td>
 
             <td>
-
             <span class="badge ${
                 transaction.transaction_type === "Income"
                     ? "bg-success"
                     : "bg-danger"
             }">
-        
                 ${transaction.transaction_type}
-        
             </span>
-        
         </td>
 
                 <td>${transaction.category}</td>
@@ -277,11 +279,19 @@ function updateSummary(data) {
 
   balanceElement.textContent = `$${income - expense}`;
 }
+
 // ===============================
 // Validation
 // ===============================
-function validateTransaction( amount, date) {
-  
+function validateTransaction(title, amount, date) {
+
+    if (title === "") {
+
+        alert("Please enter the transaction title.");
+    
+        return false;
+    
+    }
 
   if (amount === "" || Number(amount) <= 0) {
     alert("Please enter a valid amount.");
@@ -342,6 +352,7 @@ async function editTransaction(id) {
     }
 
   // Fill Form
+  titleInput.value=transaction.title;
   amountInput.value = transaction.amount;
   categoryInput.value = transaction.category;
   typeInput.value = transaction.transaction_type;
@@ -369,7 +380,7 @@ async function updateTransaction() {
     const transaction = {
 
       username: localStorage.getItem("username"),
-  
+      title:titleInput.value.trim(),
       amount: amountInput.value.trim(),
       category: categoryInput.value,
       type: typeInput.value,

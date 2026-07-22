@@ -23,6 +23,7 @@ class Transaction:
         self,
         id,
         username,
+        title,
         amount,
         category,
         transaction_type,
@@ -31,6 +32,7 @@ class Transaction:
 
         self.id = id
         self.username = username
+        self.title=title
         self.amount = float(amount)
         self.category = category
         self.transaction_type = transaction_type
@@ -42,6 +44,7 @@ class Transaction:
 
             "id": self.id,
             "username": self.username,
+            "title":self.title,
             "amount": self.amount,
             "category": self.category,
             "transaction_type": self.transaction_type,

@@ -98,7 +98,7 @@ def add_transaction():
 
     data = request.get_json()
 
-    
+    title =data["title"]
     amount = data["amount"]
     category = data["category"]
     transaction_type = data["type"]
@@ -117,6 +117,7 @@ def add_transaction():
     new_transaction = Transaction(
     new_id,
     username,
+    title,
     amount,
     category,
     transaction_type,
@@ -200,7 +201,7 @@ def update_transaction(id):
             transaction["id"] == id
             and transaction["username"] == data["username"]
         ):
-
+            transaction["title"] =data["title"]
             transaction["amount"] = float(data["amount"])
             transaction["category"] = data["category"]
             transaction["transaction_type"] = data["type"]

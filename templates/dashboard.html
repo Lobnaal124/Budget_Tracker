@@ -130,6 +130,8 @@
         <table class="table table-hover align-middle">
           <thead>
             <tr>
+              <th>Title</th>
+              
               <th>Type</th>
 
               <th>Category</th>
@@ -173,6 +175,17 @@
 
           <div class="modal-body">
             <form id="transaction-form">
+               <div class="mb-3">
+    <label class="form-label">Title</label>
+
+    <input
+        type="text"
+        class="form-control"
+        id="title"
+    >
+
+    <div id="titleError" class="invalid-feedback"></div>
+</div>
               <!-- Type -->
 
               <div class="mb-3">
@@ -181,7 +194,7 @@
                     Type
                 </label>
             
-                <select class="form-select" id="type">
+                <select class="form-select" id="type" aria-placeholder="Select Type..">
             
                     <option value="Income">
                         Income
@@ -212,7 +225,7 @@
               <div class="mb-3">
                 <label class="form-label"> Category </label>
 
-                <select class="form-select" id="category">
+                <select class="form-select" id="category" aria-placeholder="Select Category..">
                   <option>Food</option>
                   <option>Transport</option>
                   <option>Shopping</option>
